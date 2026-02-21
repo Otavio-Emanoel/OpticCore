@@ -257,6 +257,27 @@ class CameraSessionManager(private val context: Context) {
         }
     }
 
+    /**
+     * Retorna o SENSOR_ORIENTATION da câmera (0, 90, 180, 270).
+     * Necessário para rotacionar a foto corretamente.
+     */
+    fun getSensorOrientation(cameraId: String): Int {
+        return try {
+            cameraManager.getCameraCharacteristics(cameraId)
+                .get(CameraCharacteristics.SENSOR_ORIENTATION) ?: 90
+        } catch (e: Exception) {
+            90 // Default para maioria dos dispositivos
+        }
+    }
+
+    /**
+     * Verifica se a câmera é frontal.
+     * Necessário para desfazer o espelhamento.
+     */
+    fun isFrontCamera(cameraId: String): Boolean {
+        return getCameraFacing(cameraId) == CameraCharacteristics.LENS_FACING_FRONT
+    }
+
     // ─── Cleanup ────────────────────────────────────────────
 
     private fun closeSession() {
