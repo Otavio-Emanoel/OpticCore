@@ -132,9 +132,16 @@ class CameraViewModel(application: Application) : AndroidViewModel(application) 
                     try {
                         _processingState.value = ProcessingState.Processing(0f)
 
+                        // Injetar dados de orientação do sensor atual
+                        val cameraId = sessionManager.currentCameraId ?: "0"
+                        val settingsWithOrientation = _processingSettings.value.copy(
+                            sensorOrientation = sessionManager.getSensorOrientation(cameraId),
+                            isFrontCamera = sessionManager.isFrontCamera(cameraId)
+                        )
+
                         val result = captureManager.processAndSave(
                             jpegBytes = jpegBytes,
-                            settings = _processingSettings.value,
+                            settings = settingsWithOrientation,
                             onProgress = { progress ->
                                 _processingState.value = ProcessingState.Processing(progress)
                             }
