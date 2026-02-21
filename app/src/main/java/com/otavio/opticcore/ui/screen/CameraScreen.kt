@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -139,7 +140,9 @@ fun CameraScreen(
                             })
                         }
                     },
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .aspectRatio(3f / 4f) // Proporção 3:4 (retrato do sensor 4:3)
+                        .fillMaxSize()
                 )
 
                 // Preview loading
@@ -253,10 +256,13 @@ private fun ProcessingOverlay(progress: Float) {
             Spacer(Modifier.height(8.dp))
 
             val stage = when {
-                progress < 0.15f -> "Decodificando..."
-                progress < 0.50f -> "S-Curve (Tone Map)"
-                progress < 0.75f -> "Color Grading"
-                progress < 0.90f -> "Codificando JPEG"
+                progress < 0.10f -> "Decodificando + Orientação..."
+                progress < 0.30f -> "S-Curve (Tone Map)"
+                progress < 0.45f -> "Color Science"
+                progress < 0.55f -> "Clarity (Local Contrast)"
+                progress < 0.68f -> "Sharpening"
+                progress < 0.80f -> "Vignette"
+                progress < 0.95f -> "Codificando JPEG"
                 else -> "Salvando..."
             }
 
@@ -371,6 +377,51 @@ private fun SettingsPanel(
                 range = 0.7f..1.4f,
                 format = { "%.0f%%".format(it * 100) },
                 onValueChange = { v -> onSettingsChange { it.copy(contrast = v) } }
+            )
+
+            // Tint
+            SettingSlider(
+                label = "Tint",
+                value = settings.tint,
+                range = -30f..30f,
+                format = { "%.0f".format(it) },
+                onValueChange = { v -> onSettingsChange { it.copy(tint = v) } }
+            )
+
+            // Vibrance
+            SettingSlider(
+                label = "Vibrance",
+                value = settings.vibrance,
+                range = 0.8f..1.5f,
+                format = { "%.0f%%".format(it * 100) },
+                onValueChange = { v -> onSettingsChange { it.copy(vibrance = v) } }
+            )
+
+            // Clarity
+            SettingSlider(
+                label = "Nitidez+",
+                value = settings.clarity,
+                range = 0f..0.5f,
+                format = { "%.0f%%".format(it * 200) },
+                onValueChange = { v -> onSettingsChange { it.copy(clarity = v) } }
+            )
+
+            // Sharpening
+            SettingSlider(
+                label = "Sharpening",
+                value = settings.sharpenAmount,
+                range = 0f..1f,
+                format = { "%.0f%%".format(it * 100) },
+                onValueChange = { v -> onSettingsChange { it.copy(sharpenAmount = v) } }
+            )
+
+            // Vignette
+            SettingSlider(
+                label = "Vinheta",
+                value = settings.vignetteStrength,
+                range = 0f..0.4f,
+                format = { "%.0f%%".format(it * 250) },
+                onValueChange = { v -> onSettingsChange { it.copy(vignetteStrength = v) } }
             )
         }
     }
