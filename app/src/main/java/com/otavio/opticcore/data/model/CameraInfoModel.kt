@@ -98,3 +98,13 @@ sealed class CaptureState {
     data class Saved(val uri: android.net.Uri, val path: String) : CaptureState()
     data class Error(val message: String) : CaptureState()
 }
+
+/**
+ * Estado do processamento de imagem (Fase 4).
+ */
+sealed class ProcessingState {
+    data object Idle : ProcessingState()
+    data class Processing(val progress: Float) : ProcessingState()
+    data object Done : ProcessingState()
+    data class Error(val message: String) : ProcessingState()
+}

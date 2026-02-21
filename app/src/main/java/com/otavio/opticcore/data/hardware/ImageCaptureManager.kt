@@ -8,18 +8,20 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import com.otavio.opticcore.data.processing.ImageProcessor
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 /**
  * Gerencia a persistência de imagens capturadas.
- * 
- * - Recebe frames do ImageReader
- * - Salva JPEG de alta qualidade no MediaStore
- * - Retorna URI e path da galeria
  *
- * Implementação do RF07 — Gravação em Disco (I/O).
+ * Fluxo atualizado (Fase 4):
+ *   ImageReader → JPEG bytes → [ImageProcessor] → JPEG processado → MediaStore
+ *
+ * RF05 + RF07 — Processamento + Gravação em Disco.
  */
 class ImageCaptureManager(private val context: Context) {
 
@@ -29,11 +31,12 @@ class ImageCaptureManager(private val context: Context) {
         private const val MIME_TYPE = "image/jpeg"
     }
 
+    private val processor = ImageProcessor()
+
     /**
-     * Extrai o JPEG do ImageReader e salva no MediaStore.
-     * @return Pair(uri, displayName) ou null se falhar.
+     * Extrai JPEG do ImageReader, retorna bytes brutos (sem processar).
      */
-    fun saveImageFromReader(reader: ImageReader): Pair<Uri, String>? {
+    fun extractJpegBytes(reader: ImageReader): ByteArray? {
         val image = reader.acquireLatestImage() ?: run {
             Log.e(TAG, "acquireLatestImage() retornou null")
             return null
@@ -43,16 +46,59 @@ class ImageCaptureManager(private val context: Context) {
             val buffer = image.planes[0].buffer
             val bytes = ByteArray(buffer.remaining())
             buffer.get(bytes)
-
-            Log.i(TAG, "Frame capturado: ${bytes.size / 1024} KB (${image.width}x${image.height})")
-
-            saveJpegToGallery(bytes)
+            Log.i(TAG, "Frame extraído: ${bytes.size / 1024} KB (${image.width}x${image.height})")
+            bytes
         } catch (e: Exception) {
-            Log.e(TAG, "Erro ao salvar imagem: ${e.message}", e)
+            Log.e(TAG, "Erro ao extrair JPEG: ${e.message}", e)
             null
         } finally {
             image.close()
         }
+    }
+
+    /**
+     * Processa e salva JPEG na galeria.
+     *
+     * @param jpegBytes    Bytes JPEG brutos do ImageReader
+     * @param settings     Configurações de processamento (S-Curve + ColorMatrix)
+     * @param onProgress   Callback de progresso (0.0..1.0)
+     * @return Pair(uri, displayName) ou null se falhar
+     */
+    suspend fun processAndSave(
+        jpegBytes: ByteArray,
+        settings: ImageProcessor.Settings = ImageProcessor.Settings(),
+        onProgress: ((Float) -> Unit)? = null
+    ): Pair<Uri, String>? {
+        return try {
+            // Processa a imagem (Dispatchers.Default internamente)
+            val processedBytes = processor.process(
+                jpegBytes = jpegBytes,
+                settings = settings,
+                onProgress = { progress ->
+                    // Processamento = 0..80% do total
+                    onProgress?.invoke(progress * 0.8f)
+                }
+            )
+
+            // Salva no MediaStore (IO)
+            onProgress?.invoke(0.85f)
+            val result = withContext(Dispatchers.IO) {
+                saveJpegToGallery(processedBytes)
+            }
+
+            onProgress?.invoke(1.0f)
+            result
+        } catch (e: Exception) {
+            Log.e(TAG, "Erro no pipeline process+save: ${e.message}", e)
+            null
+        }
+    }
+
+    /**
+     * Salva JPEG sem processar (fallback / modo direto).
+     */
+    fun saveRawJpeg(jpegBytes: ByteArray): Pair<Uri, String>? {
+        return saveJpegToGallery(jpegBytes)
     }
 
     /**
@@ -87,7 +133,6 @@ class ImageCaptureManager(private val context: Context) {
                 outputStream.flush()
             }
 
-            // Marcar como não-pendente (disponível na galeria)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 contentValues.clear()
                 contentValues.put(MediaStore.Images.Media.IS_PENDING, 0)
