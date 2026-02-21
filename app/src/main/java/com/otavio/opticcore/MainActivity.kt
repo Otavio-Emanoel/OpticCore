@@ -86,15 +86,21 @@ class MainActivity : ComponentActivity() {
                         // Viewfinder principal
                         val previewState by cameraViewModel.previewState.collectAsState()
                         val captureState by cameraViewModel.captureState.collectAsState()
+                        val processingState by cameraViewModel.processingState.collectAsState()
                         val currentLensIndex by cameraViewModel.currentLensIndex.collectAsState()
                         val availableLenses by cameraViewModel.availableLenses.collectAsState()
+                        val processingSettings by cameraViewModel.processingSettings.collectAsState()
+                        val showSettings by cameraViewModel.showSettings.collectAsState()
 
                         CameraScreen(
                             viewModel = cameraViewModel,
                             previewState = previewState,
                             captureState = captureState,
+                            processingState = processingState,
                             currentLensIndex = currentLensIndex,
                             availableLenses = availableLenses,
+                            processingSettings = processingSettings,
+                            showSettings = showSettings,
                             onInfoClick = {
                                 showInfoScreen = !showInfoScreen
                             },
