@@ -8,11 +8,18 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.util.Log
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.face.Face
+import com.google.mlkit.vision.face.FaceDetection
+import com.google.mlkit.vision.face.FaceDetectorOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import kotlin.coroutines.coroutineContext
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 import kotlin.math.max
 import kotlin.math.min
 
@@ -148,6 +155,24 @@ class ImageProcessor {
             .format(settings.temperature, settings.tint, settings.saturation, settings.vibrance, settings.contrast))
         onProgress?.invoke(0.45f)
 
+        // ── [3.5/7] Face Detection (Motor IA) ──────────────
+        coroutineContext.ensureActive()
+
+        try {
+            val faces = detectFaces(bitmap)
+            if (faces.isNotEmpty()) {
+                Log.i(TAG, "║  [3.5/7] Motor IA: ${faces.size} rosto(s) detectado(s)!")
+                for ((index, face) in faces.withIndex()) {
+                    Log.i(TAG, "║    Rosto $index: boundingBox=${face.boundingBox}")
+                }
+            } else {
+                Log.i(TAG, "║  [3.5/7] Motor IA: Nenhum rosto detectado.")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "║  [3.5/7] Motor IA: Erro na detecção facial: ${e.message}")
+        }
+        onProgress?.invoke(0.50f)
+
         // ── [4/7] Clarity (Local Contrast) ─────────────────
         coroutineContext.ensureActive()
 
@@ -198,6 +223,45 @@ class ImageProcessor {
 
         onProgress?.invoke(1.0f)
         resultBytes
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    //  Motor de IA (Visão Computacional)
+    // ═══════════════════════════════════════════════════════════
+
+    /**
+     * Detecta rostos na imagem usando Google ML Kit Face Detection.
+     * Necessário para aplicar o filtro bilateral (embelezamento) apenas no rosto,
+     * preservando olhos, boca e cabelo.
+     */
+    private suspend fun detectFaces(bitmap: Bitmap): List<Face> = suspendCancellableCoroutine { continuation ->
+        val options = FaceDetectorOptions.Builder()
+            .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
+            .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL) // Achar olhos, boca
+            .setContourMode(FaceDetectorOptions.CONTOUR_MODE_ALL)   // Achar o contorno exato do rosto
+            .build()
+
+        val detector = FaceDetection.getClient(options)
+        val image = InputImage.fromBitmap(bitmap, 0)
+
+        detector.process(image)
+            .addOnSuccessListener { faces ->
+                if (continuation.isActive) {
+                    continuation.resume(faces)
+                }
+                detector.close()
+            }
+            .addOnFailureListener { e ->
+                if (continuation.isActive) {
+                    continuation.resumeWithException(e)
+                }
+                detector.close()
+            }
+
+        // Se a coroutine for cancelada (ex: usuário fechou o app), liberamos os recursos
+        continuation.invokeOnCancellation {
+            detector.close()
+        }
     }
 
     // ═══════════════════════════════════════════════════════════
