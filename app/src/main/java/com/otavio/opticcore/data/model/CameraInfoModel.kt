@@ -78,3 +78,23 @@ data class CameraDeviceReport(
     val lenses: List<CameraLensInfo>,
     val scanTimestamp: Long = System.currentTimeMillis()
 )
+
+/**
+ * Estado do preview da câmera.
+ */
+sealed class PreviewState {
+    data object Idle : PreviewState()
+    data object Starting : PreviewState()
+    data object Active : PreviewState()
+    data class Error(val message: String) : PreviewState()
+}
+
+/**
+ * Estado da captura de foto.
+ */
+sealed class CaptureState {
+    data object Idle : CaptureState()
+    data object Capturing : CaptureState()
+    data class Saved(val uri: android.net.Uri, val path: String) : CaptureState()
+    data class Error(val message: String) : CaptureState()
+}
