@@ -8,12 +8,13 @@ import android.graphics.Paint
 import android.util.Log
 
 /**
- * Color Grading usando Android ColorMatrix.
+ * Color Grading avançado usando Android ColorMatrix.
  *
- * Combina múltiplas transformações numa única matriz para
- * aplicação eficiente via GPU (Canvas + Paint):
+ * Combina múltiplas transformações numa única matriz:
  *   - Temperatura (balanço de branco warm/cool)
- *   - Saturação (luminance-preserving)
+ *   - Tint (green/magenta shift — essencial para skin tones)
+ *   - Saturação (luminance-preserving BT.709)
+ *   - Vibrance (saturação seletiva — boost em cores dessaturadas)
  *   - Contraste
  *
  * RF05 — Processamento de Imagem Customizado.
@@ -23,7 +24,7 @@ class ColorGrading {
     companion object {
         private const val TAG = "OpticCore.ColorGrade"
 
-        // Coeficientes de luminância BT.709
+        // Coeficientes de luminância BT.709 (padrão sRGB/iPhone)
         private const val LUM_R = 0.2126f
         private const val LUM_G = 0.7152f
         private const val LUM_B = 0.0722f
@@ -31,45 +32,50 @@ class ColorGrading {
 
     /**
      * Cria uma ColorMatrix combinada com todos os ajustes.
-     *
-     * @param temperature  -100 a +100 (negativo = cool/azul, positivo = warm/amarelo)
-     * @param saturation   0.0 a 2.0 (0 = P&B, 1 = normal, 2 = super saturado)
-     * @param contrast     0.5 a 2.0 (1.0 = normal)
      */
     fun buildColorMatrix(
-        temperature: Float = 0f,
-        saturation: Float = 1.1f,
-        contrast: Float = 1.05f
+        temperature: Float = 6f,
+        tint: Float = 2f,
+        saturation: Float = 1.08f,
+        vibrance: Float = 1.15f,
+        contrast: Float = 1.10f
     ): ColorMatrix {
         val combined = ColorMatrix()
 
         // 1. Temperatura (White Balance)
         if (temperature != 0f) {
-            val tempMatrix = createTemperatureMatrix(temperature)
-            combined.postConcat(tempMatrix)
+            combined.postConcat(createTemperatureMatrix(temperature))
         }
 
-        // 2. Saturação
-        if (saturation != 1.0f) {
-            val satMatrix = createSaturationMatrix(saturation)
-            combined.postConcat(satMatrix)
+        // 2. Tint (Green/Magenta)
+        if (tint != 0f) {
+            combined.postConcat(createTintMatrix(tint))
         }
 
-        // 3. Contraste
+        // 3. Contraste (antes da saturação para melhor resultado)
         if (contrast != 1.0f) {
-            val contrastMatrix = createContrastMatrix(contrast)
-            combined.postConcat(contrastMatrix)
+            combined.postConcat(createContrastMatrix(contrast))
         }
 
-        Log.d(TAG, "ColorMatrix construída: temp=%.0f, sat=%.2f, contrast=%.2f"
-            .format(temperature, saturation, contrast))
+        // 4. Saturação base
+        if (saturation != 1.0f) {
+            combined.postConcat(createSaturationMatrix(saturation))
+        }
+
+        // 5. Vibrance (saturação seletiva) — simulada via segunda aplicação
+        if (vibrance != 1.0f && vibrance != saturation) {
+            val vibranceAdjust = 1f + (vibrance - 1f) * 0.3f // Mais sutil
+            combined.postConcat(createSaturationMatrix(vibranceAdjust))
+        }
+
+        Log.d(TAG, "ColorMatrix: temp=%.0f, tint=%.0f, sat=%.2f, vib=%.2f, con=%.2f"
+            .format(temperature, tint, saturation, vibrance, contrast))
 
         return combined
     }
 
     /**
      * Aplica a ColorMatrix ao Bitmap usando Canvas + Paint.
-     * Usa aceleração de hardware quando disponível.
      */
     fun applyTonemapping(source: Bitmap, colorMatrix: ColorMatrix): Bitmap {
         val result = Bitmap.createBitmap(source.width, source.height, Bitmap.Config.ARGB_8888)
@@ -86,17 +92,38 @@ class ColorGrading {
     // ─── Matrizes individuais ───────────────────────────────
 
     /**
-     * Temperatura: shift no R e B para simular warm/cool.
-     * Ranges: -100 (cool blue) a +100 (warm orange)
+     * Temperatura: warm/cool shift.
+     * iPhone usa valores sutis para dourar skin tones sem puxar para laranja.
      */
     private fun createTemperatureMatrix(temperature: Float): ColorMatrix {
-        val t = temperature / 100f // Normaliza para -1..+1
+        val t = temperature / 100f
 
-        // Warm: aumenta R, diminui B
-        // Cool: diminui R, aumenta B
-        val rShift = 1f + t * 0.15f
-        val gShift = 1f + t * 0.03f
-        val bShift = 1f - t * 0.18f
+        // R sobe suavemente, B desce — emula tungsten/daylight
+        val rShift = 1f + t * 0.12f
+        val gShift = 1f + t * 0.04f
+        val bShift = 1f - t * 0.14f
+
+        return ColorMatrix(floatArrayOf(
+            rShift, 0f,     0f,     0f, 0f,
+            0f,     gShift, 0f,     0f, 0f,
+            0f,     0f,     bShift, 0f, 0f,
+            0f,     0f,     0f,     1f, 0f
+        ))
+    }
+
+    /**
+     * Tint: Green/Magenta shift.
+     * Essencial para corrigir tons de pele que ficam muito verdes.
+     * iPhone aplica tint automático baseado no AWB.
+     */
+    private fun createTintMatrix(tint: Float): ColorMatrix {
+        val t = tint / 100f
+
+        // Positivo = mais magenta (R+B up, G down)
+        // Negativo = mais verde (G up, R+B down)
+        val rShift = 1f + t * 0.06f
+        val gShift = 1f - t * 0.08f
+        val bShift = 1f + t * 0.04f
 
         return ColorMatrix(floatArrayOf(
             rShift, 0f,     0f,     0f, 0f,
