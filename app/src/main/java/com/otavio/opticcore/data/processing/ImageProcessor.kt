@@ -8,18 +8,11 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.util.Log
-import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.face.Face
-import com.google.mlkit.vision.face.FaceDetection
-import com.google.mlkit.vision.face.FaceDetectorOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
-import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import kotlin.coroutines.coroutineContext
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 import kotlin.math.max
 import kotlin.math.min
 
@@ -49,20 +42,20 @@ class ImageProcessor {
      */
     data class Settings(
         // Tone Mapping (S-Curve)
-        val shadows: Float = -0.18f,        // Crush suave nas sombras
-        val highlights: Float = 0.14f,      // Protege realces generosamente
-        val gamma: Float = 0.96f,           // Levíssimo lift nos midtones
+        val shadows: Float = -0.05f,        // Quase zero, não esmague os pretos
+        val highlights: Float = 0.08f,      // Salva o céu
+        val gamma: Float = 1.0f,            // Neutro
 
         // Color Science
-        val temperature: Float = 6f,        // Warmth sutil (pele dourada)
-        val tint: Float = 2f,               // Leve shift magenta (remove verde de pele)
-        val saturation: Float = 1.08f,      // Saturação controlada
-        val vibrance: Float = 1.15f,        // Boost seletivo em cores dessaturadas
-        val contrast: Float = 1.10f,        // Contraste médio-alto
+        val temperature: Float = 4f,        // Apenas um toque dourado
+        val tint: Float = 1f,
+        val saturation: Float = 1.02f,      // iPhone não satura muito
+        val vibrance: Float = 1.05f,
+        val contrast: Float = 1.0f,         // Deixe o contraste no 1.0 (neutro)! A S-Curve já faz o contraste.
 
         // Detail Enhancement
-        val sharpenAmount: Float = 0.5f,    // Sharpening (0=off, 1=máximo)
-        val clarity: Float = 0.15f,         // Local contrast (luminosity micro-contrast)
+        val sharpenAmount: Float = 0.15f,   // Diminua DRASTICAMENTE (era 0.5f)
+        val clarity: Float = 0.05f,         // Diminua DRASTICAMENTE (era 0.15f)
 
         // Vignette
         val vignetteStrength: Float = 0.12f,// Vinheta sutil para foco central
@@ -115,6 +108,14 @@ class ImageProcessor {
         Log.i(TAG, "║  [1/7] Decode + Orientação: ${bitmap.width}x${bitmap.height}")
         onProgress?.invoke(0.10f)
 
+        // --- NOVA ETAPA: EMBELEZAMENTO DE ROSTO ---
+        coroutineContext.ensureActive()
+        Log.i(TAG, "║  [1.5/7] Detectando Rostos (IA)...")
+        onProgress?.invoke(0.15f)
+        val beautifier = FaceBeautifier()
+        bitmap = beautifier.applyBeautyMagic(bitmap)
+        // ------------------------------------------
+
         // ── [2/7] S-Curve (Tone Mapping) ───────────────────
         coroutineContext.ensureActive()
 
@@ -154,24 +155,6 @@ class ImageProcessor {
         Log.i(TAG, "║  [3/7] Color Science: temp=%.0f, tint=%.0f, sat=%.2f, vib=%.2f, con=%.2f"
             .format(settings.temperature, settings.tint, settings.saturation, settings.vibrance, settings.contrast))
         onProgress?.invoke(0.45f)
-
-        // ── [3.5/7] Face Detection (Motor IA) ──────────────
-        coroutineContext.ensureActive()
-
-        try {
-            val faces = detectFaces(bitmap)
-            if (faces.isNotEmpty()) {
-                Log.i(TAG, "║  [3.5/7] Motor IA: ${faces.size} rosto(s) detectado(s)!")
-                for ((index, face) in faces.withIndex()) {
-                    Log.i(TAG, "║    Rosto $index: boundingBox=${face.boundingBox}")
-                }
-            } else {
-                Log.i(TAG, "║  [3.5/7] Motor IA: Nenhum rosto detectado.")
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "║  [3.5/7] Motor IA: Erro na detecção facial: ${e.message}")
-        }
-        onProgress?.invoke(0.50f)
 
         // ── [4/7] Clarity (Local Contrast) ─────────────────
         coroutineContext.ensureActive()
@@ -223,45 +206,6 @@ class ImageProcessor {
 
         onProgress?.invoke(1.0f)
         resultBytes
-    }
-
-    // ═══════════════════════════════════════════════════════════
-    //  Motor de IA (Visão Computacional)
-    // ═══════════════════════════════════════════════════════════
-
-    /**
-     * Detecta rostos na imagem usando Google ML Kit Face Detection.
-     * Necessário para aplicar o filtro bilateral (embelezamento) apenas no rosto,
-     * preservando olhos, boca e cabelo.
-     */
-    private suspend fun detectFaces(bitmap: Bitmap): List<Face> = suspendCancellableCoroutine { continuation ->
-        val options = FaceDetectorOptions.Builder()
-            .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
-            .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL) // Achar olhos, boca
-            .setContourMode(FaceDetectorOptions.CONTOUR_MODE_ALL)   // Achar o contorno exato do rosto
-            .build()
-
-        val detector = FaceDetection.getClient(options)
-        val image = InputImage.fromBitmap(bitmap, 0)
-
-        detector.process(image)
-            .addOnSuccessListener { faces ->
-                if (continuation.isActive) {
-                    continuation.resume(faces)
-                }
-                detector.close()
-            }
-            .addOnFailureListener { e ->
-                if (continuation.isActive) {
-                    continuation.resumeWithException(e)
-                }
-                detector.close()
-            }
-
-        // Se a coroutine for cancelada (ex: usuário fechou o app), liberamos os recursos
-        continuation.invokeOnCancellation {
-            detector.close()
-        }
     }
 
     // ═══════════════════════════════════════════════════════════
