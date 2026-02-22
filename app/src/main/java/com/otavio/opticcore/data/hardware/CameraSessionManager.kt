@@ -187,6 +187,14 @@ class CameraSessionManager(private val context: Context) {
                 set(CaptureRequest.CONTROL_AE_MODE, CameraMetadata.CONTROL_AE_MODE_ON)
                 // JPEG de qualidade máxima
                 set(CaptureRequest.JPEG_QUALITY, 100.toByte())
+
+                // A MÁGICA PARA TIRAR A "CARA DE XIAOMI":
+                // 1. Desliga a nitidez artificial (Edge Enhancement)
+                set(CaptureRequest.EDGE_MODE, CameraMetadata.EDGE_MODE_OFF)
+                // 2. Desliga a redução de ruído que deixa a pele parecendo cera
+                set(CaptureRequest.NOISE_REDUCTION_MODE, CameraMetadata.NOISE_REDUCTION_MODE_OFF)
+                // 3. Pede uma curva de tons reta (sem contraste adicionado pelo hardware)
+                set(CaptureRequest.TONEMAP_MODE, CameraMetadata.TONEMAP_MODE_FAST)
             }
 
             // Pausar preview, capturar, retomar preview
