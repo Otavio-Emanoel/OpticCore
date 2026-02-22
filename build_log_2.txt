@@ -1,0 +1,371 @@
+Initialized native services in: /home/otavioemanoel/.gradle/native
+Initialized jansi services in: /home/otavioemanoel/.gradle/native
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Path for java installation '/usr/lib/jvm/java-24-openjdk' (Common Linux Locations) auto-detected does not contain a java executable
+Starting process 'command '/usr/lib/jvm/java-latest-openjdk/bin/java''. Working directory: /home/otavioemanoel/.gradle/.tmp/tmp-jvm5845136774944328532probe Command: /usr/lib/jvm/java-latest-openjdk/bin/java -Xmx32m -Xms32m -cp . JavaProbe
+Successfully started process 'command '/usr/lib/jvm/java-latest-openjdk/bin/java''
+Received JVM installation metadata from '/usr/lib/jvm/java-latest-openjdk': {JAVA_HOME=/usr/lib/jvm/java-latest-openjdk, JAVA_VERSION=26-ea, JAVA_VENDOR=Red Hat, Inc., RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=26-ea+32, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=26-ea+32, VM_VENDOR=Red Hat, Inc., OS_ARCH=amd64}
+Received JVM installation metadata from '/usr/lib/jvm/java-21-openjdk': {JAVA_HOME=/usr/lib/jvm/java-21-openjdk, JAVA_VERSION=21.0.10, JAVA_VENDOR=Red Hat, Inc., RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=21.0.10+7, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=21.0.10+7, VM_VENDOR=Red Hat, Inc., OS_ARCH=amd64}
+Starting process 'Gradle build daemon'. Working directory: /home/otavioemanoel/.gradle/daemon/9.2.1 Command: /usr/lib/jvm/java-21-openjdk/bin/java --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED --add-opens=java.base/java.nio.charset=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.xml/javax.xml.namespace=ALL-UNNAMED --add-opens=java.base/java.time=ALL-UNNAMED -Xmx2048m -Dfile.encoding=UTF-8 -Duser.country=BR -Duser.language=pt -Duser.variant -cp /home/otavioemanoel/.gradle/wrapper/dists/gradle-9.2.1-bin/2t0n5ozlw9xmuyvbp7dnzaxug/gradle-9.2.1/lib/gradle-daemon-main-9.2.1.jar -javaagent:/home/otavioemanoel/.gradle/wrapper/dists/gradle-9.2.1-bin/2t0n5ozlw9xmuyvbp7dnzaxug/gradle-9.2.1/lib/agents/gradle-instrumentation-agent-9.2.1.jar org.gradle.launcher.daemon.bootstrap.GradleDaemon 9.2.1
+Successfully started process 'Gradle build daemon'
+An attempt to start the daemon took 1.166 secs.
+The client will now receive all logging from the daemon (pid: 125136). The daemon log file: /home/otavioemanoel/.gradle/daemon/9.2.1/daemon-125136.out.log
+Daemon will be stopped at the end of the build 
+Using 8 worker leases.
+Operational build model parameters: {requiresToolingModels=false, parallelProjectExecution=false, configureOnDemand=false, configurationCache=false, configurationCacheParallelStore=false, configurationCacheParallelLoad=true, isolatedProjects=false, parallelProjectConfiguration=false, intermediateModelCache=false, parallelToolingApiActions=false, invalidateCoupledProjects=false, modelAsProjectDependency=false, resilientModelBuilding=false}
+Received JVM installation metadata from '/usr/lib/jvm/java-21-openjdk': {JAVA_HOME=/usr/lib/jvm/java-21-openjdk, JAVA_VERSION=21.0.10, JAVA_VENDOR=Red Hat, Inc., RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=21.0.10+7, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=21.0.10+7, VM_VENDOR=Red Hat, Inc., OS_ARCH=amd64}
+Watching the file system is configured to be enabled if available
+Now considering [/home/otavioemanoel/AndroidStudioProjects/OpticCore] as hierarchies to watch
+File system watching is active
+Starting Build
+Resolved plugin [id: 'org.gradle.toolchains.foojay-resolver-convention', version: '1.0.0']
+Settings evaluated using settings file '/home/otavioemanoel/AndroidStudioProjects/OpticCore/settings.gradle.kts'.
+Projects loaded. Root project using build file '/home/otavioemanoel/AndroidStudioProjects/OpticCore/build.gradle.kts'.
+Included projects: [root project 'OpticCore', project ':app']
+
+> Configure project :
+Evaluating root project 'OpticCore' using build file '/home/otavioemanoel/AndroidStudioProjects/OpticCore/build.gradle.kts'.
+Resolved plugin [id: 'com.android.application', version: '9.0.1', apply: false]
+Resolved plugin [id: 'org.jetbrains.kotlin.plugin.compose', version: '2.0.21', apply: false]
+
+> Configure project :app
+Evaluating project ':app' using build file '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/build.gradle.kts'.
+Resolved plugin [id: 'com.android.application', version: '9.0.1']
+Resolved plugin [id: 'org.jetbrains.kotlin.plugin.compose', version: '2.0.21']
+Build 8d677398-f1e6-4a3f-89a3-913f8afd7111 is started
+Using default execution profile
+Detected Android Gradle Plugin compose compiler configuration
+Detected Android Gradle Plugin compose compiler configuration
+Detected Android Gradle Plugin compose compiler configuration
+Detected Android Gradle Plugin compose compiler configuration
+All projects evaluated.
+Task name matched 'assembleDebug'
+Selected primary task 'assembleDebug' from project :
+Adding -Xuse-inline-scopes-numbers Kotlin compiler flag for task :app:compileDebugKotlin
+Tasks to be executed: [task ':app:preBuild', task ':app:preDebugBuild', task ':app:mergeDebugNativeDebugMetadata', task ':app:generateDebugResources', task ':app:packageDebugResources', task ':app:processDebugNavigationResources', task ':app:parseDebugLocalResources', task ':app:generateDebugRFile', task ':app:compileDebugKotlin', task ':app:javaPreCompileDebug', task ':app:compileDebugJavaWithJavac', task ':app:generateDebugAssets', task ':app:mergeDebugAssets', task ':app:compressDebugAssets', task ':app:processDebugJavaRes', task ':app:mergeDebugJavaResource', task ':app:checkDebugDuplicateClasses', task ':app:desugarDebugFileDependencies', task ':app:mergeExtDexDebug', task ':app:mergeLibDexDebug', task ':app:checkDebugAarMetadata', task ':app:compileDebugNavigationResources', task ':app:mapDebugSourceSetPaths', task ':app:mergeDebugResources', task ':app:createDebugCompatibleScreenManifests', task ':app:extractDeepLinksDebug', task ':app:processDebugMainManifest', task ':app:processDebugManifest', task ':app:processDebugManifestForPackage', task ':app:processDebugResources', task ':app:dexBuilderDebug', task ':app:mergeProjectDexDebug', task ':app:mergeDebugJniLibFolders', task ':app:mergeDebugNativeLibs', task ':app:stripDebugDebugSymbols', task ':app:validateSigningDebug', task ':app:writeDebugAppMetadata', task ':app:writeDebugSigningConfigVersions', task ':app:packageDebug', task ':app:createDebugApkListingFileRedirect', task ':app:assembleDebug']
+Tasks that were excluded: []
+Resolve mutations for :app:preBuild (Thread[#81,Execution worker,5,main]) started.
+:app:preBuild (Thread[#81,Execution worker,5,main]) started.
+
+> Task :app:preBuild UP-TO-DATE
+Skipping task ':app:preBuild' as it has no actions.
+Resolve mutations for :app:preDebugBuild (Thread[#81,Execution worker,5,main]) started.
+:app:preDebugBuild (Thread[#81,Execution worker,5,main]) started.
+
+> Task :app:preDebugBuild UP-TO-DATE
+Skipping task ':app:preDebugBuild' as it has no actions.
+Resolve mutations for :app:mergeDebugNativeDebugMetadata (Thread[#81,Execution worker,5,main]) started.
+:app:mergeDebugNativeDebugMetadata (Thread[#80,included builds,5,main]) started.
+
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+Skipping task ':app:mergeDebugNativeDebugMetadata' as it has no source files and no previous output files.
+Resolve mutations for :app:generateDebugResources (Thread[#80,included builds,5,main]) started.
+:app:generateDebugResources (Thread[#80,included builds,5,main]) started.
+
+> Task :app:generateDebugResources UP-TO-DATE
+Caching disabled for task ':app:generateDebugResources' because:
+  Build cache is disabled
+Skipping task ':app:generateDebugResources' as it is up-to-date.
+Resolve mutations for :app:packageDebugResources (Thread[#80,included builds,5,main]) started.
+:app:packageDebugResources (Thread[#80,included builds,5,main]) started.
+
+> Task :app:packageDebugResources UP-TO-DATE
+Caching disabled for task ':app:packageDebugResources' because:
+  Build cache is disabled
+Skipping task ':app:packageDebugResources' as it is up-to-date.
+Resolve mutations for :app:processDebugNavigationResources (Thread[#80,included builds,5,main]) started.
+:app:processDebugNavigationResources (Thread[#80,included builds,5,main]) started.
+
+> Task :app:processDebugNavigationResources UP-TO-DATE
+Caching disabled for task ':app:processDebugNavigationResources' because:
+  Build cache is disabled
+Skipping task ':app:processDebugNavigationResources' as it is up-to-date.
+Resolve mutations for :app:parseDebugLocalResources (Thread[#80,included builds,5,main]) started.
+:app:parseDebugLocalResources (Thread[#80,included builds,5,main]) started.
+
+> Task :app:parseDebugLocalResources UP-TO-DATE
+Caching disabled for task ':app:parseDebugLocalResources' because:
+  Build cache is disabled
+Skipping task ':app:parseDebugLocalResources' as it is up-to-date.
+Resolve mutations for :app:generateDebugRFile (Thread[#80,included builds,5,main]) started.
+:app:generateDebugRFile (Thread[#80,included builds,5,main]) started.
+
+> Task :app:generateDebugRFile UP-TO-DATE
+Caching disabled for task ':app:generateDebugRFile' because:
+  Build cache is disabled
+Skipping task ':app:generateDebugRFile' as it is up-to-date.
+Resolve mutations for :app:compileDebugKotlin (Thread[#80,included builds,5,main]) started.
+:app:compileDebugKotlin (Thread[#80,included builds,5,main]) started.
+Resolve mutations for :app:javaPreCompileDebug (Thread[#84,Execution worker Thread 4,5,main]) started.
+:app:javaPreCompileDebug (Thread[#84,Execution worker Thread 4,5,main]) started.
+
+> Task :app:javaPreCompileDebug UP-TO-DATE
+Caching disabled for task ':app:javaPreCompileDebug' because:
+  Build cache is disabled
+Skipping task ':app:javaPreCompileDebug' as it is up-to-date.
+Resolve mutations for :app:generateDebugAssets (Thread[#84,Execution worker Thread 4,5,main]) started.
+:app:generateDebugAssets (Thread[#84,Execution worker Thread 4,5,main]) started.
+
+> Task :app:generateDebugAssets UP-TO-DATE
+Skipping task ':app:generateDebugAssets' as it has no actions.
+Resolve mutations for :app:mergeDebugAssets (Thread[#84,Execution worker Thread 4,5,main]) started.
+:app:mergeDebugAssets (Thread[#84,Execution worker Thread 4,5,main]) started.
+
+> Task :app:mergeDebugAssets UP-TO-DATE
+Caching disabled for task ':app:mergeDebugAssets' because:
+  Build cache is disabled
+  Simple merging task
+Skipping task ':app:mergeDebugAssets' as it is up-to-date.
+Resolve mutations for :app:compressDebugAssets (Thread[#84,Execution worker Thread 4,5,main]) started.
+:app:compressDebugAssets (Thread[#84,Execution worker Thread 4,5,main]) started.
+
+> Task :app:compressDebugAssets UP-TO-DATE
+Caching disabled for task ':app:compressDebugAssets' because:
+  Build cache is disabled
+Skipping task ':app:compressDebugAssets' as it is up-to-date.
+Resolve mutations for :app:checkDebugDuplicateClasses (Thread[#84,Execution worker Thread 4,5,main]) started.
+:app:checkDebugDuplicateClasses (Thread[#84,Execution worker Thread 4,5,main]) started.
+
+> Task :app:checkDebugDuplicateClasses UP-TO-DATE
+Caching disabled for task ':app:checkDebugDuplicateClasses' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:checkDebugDuplicateClasses' as it is up-to-date.
+Resolve mutations for :app:desugarDebugFileDependencies (Thread[#84,Execution worker Thread 4,5,main]) started.
+:app:desugarDebugFileDependencies (Thread[#84,Execution worker Thread 4,5,main]) started.
+
+> Task :app:desugarDebugFileDependencies UP-TO-DATE
+Caching disabled for task ':app:desugarDebugFileDependencies' because:
+  Build cache is disabled
+Skipping task ':app:desugarDebugFileDependencies' as it is up-to-date.
+Resolve mutations for :app:mergeExtDexDebug (Thread[#84,Execution worker Thread 4,5,main]) started.
+:app:mergeExtDexDebug (Thread[#84,Execution worker Thread 4,5,main]) started.
+
+> Task :app:mergeExtDexDebug UP-TO-DATE
+Caching disabled for task ':app:mergeExtDexDebug' because:
+  Build cache is disabled
+Skipping task ':app:mergeExtDexDebug' as it is up-to-date.
+Resolve mutations for :app:mergeLibDexDebug (Thread[#84,Execution worker Thread 4,5,main]) started.
+:app:mergeLibDexDebug (Thread[#84,Execution worker Thread 4,5,main]) started.
+
+> Task :app:mergeLibDexDebug UP-TO-DATE
+Caching disabled for task ':app:mergeLibDexDebug' because:
+  Build cache is disabled
+Skipping task ':app:mergeLibDexDebug' as it is up-to-date.
+Resolve mutations for :app:checkDebugAarMetadata (Thread[#84,Execution worker Thread 4,5,main]) started.
+:app:checkDebugAarMetadata (Thread[#84,Execution worker Thread 4,5,main]) started.
+
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+Caching disabled for task ':app:checkDebugAarMetadata' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:checkDebugAarMetadata' as it is up-to-date.
+Resolve mutations for :app:compileDebugNavigationResources (Thread[#84,Execution worker Thread 4,5,main]) started.
+:app:compileDebugNavigationResources (Thread[#84,Execution worker Thread 4,5,main]) started.
+
+> Task :app:compileDebugNavigationResources UP-TO-DATE
+Caching disabled for task ':app:compileDebugNavigationResources' because:
+  Build cache is disabled
+Skipping task ':app:compileDebugNavigationResources' as it is up-to-date.
+Resolve mutations for :app:mapDebugSourceSetPaths (Thread[#84,Execution worker Thread 4,5,main]) started.
+:app:mapDebugSourceSetPaths (Thread[#84,Execution worker Thread 4,5,main]) started.
+
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+Caching disabled for task ':app:mapDebugSourceSetPaths' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:mapDebugSourceSetPaths' as it is up-to-date.
+Resolve mutations for :app:mergeDebugResources (Thread[#83,Execution worker Thread 3,5,main]) started.
+:app:mergeDebugResources (Thread[#83,Execution worker Thread 3,5,main]) started.
+
+> Task :app:mergeDebugResources UP-TO-DATE
+Caching disabled for task ':app:mergeDebugResources' because:
+  Build cache is disabled
+Skipping task ':app:mergeDebugResources' as it is up-to-date.
+Resolve mutations for :app:createDebugCompatibleScreenManifests (Thread[#84,Execution worker Thread 4,5,main]) started.
+:app:createDebugCompatibleScreenManifests (Thread[#84,Execution worker Thread 4,5,main]) started.
+
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+Caching disabled for task ':app:createDebugCompatibleScreenManifests' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:createDebugCompatibleScreenManifests' as it is up-to-date.
+Resolve mutations for :app:extractDeepLinksDebug (Thread[#84,Execution worker Thread 4,5,main]) started.
+:app:extractDeepLinksDebug (Thread[#84,Execution worker Thread 4,5,main]) started.
+
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+Caching disabled for task ':app:extractDeepLinksDebug' because:
+  Build cache is disabled
+Skipping task ':app:extractDeepLinksDebug' as it is up-to-date.
+Resolve mutations for :app:processDebugMainManifest (Thread[#83,Execution worker Thread 3,5,main]) started.
+:app:processDebugMainManifest (Thread[#83,Execution worker Thread 3,5,main]) started.
+
+> Task :app:processDebugMainManifest UP-TO-DATE
+Caching disabled for task ':app:processDebugMainManifest' because:
+  Build cache is disabled
+Skipping task ':app:processDebugMainManifest' as it is up-to-date.
+Resolve mutations for :app:processDebugManifest (Thread[#83,Execution worker Thread 3,5,main]) started.
+:app:processDebugManifest (Thread[#83,Execution worker Thread 3,5,main]) started.
+
+> Task :app:processDebugManifest UP-TO-DATE
+Caching disabled for task ':app:processDebugManifest' because:
+  Build cache is disabled
+Skipping task ':app:processDebugManifest' as it is up-to-date.
+Resolve mutations for :app:processDebugManifestForPackage (Thread[#83,Execution worker Thread 3,5,main]) started.
+:app:processDebugManifestForPackage (Thread[#83,Execution worker Thread 3,5,main]) started.
+
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+Custom actions are attached to task ':app:processDebugManifestForPackage'.
+Caching disabled for task ':app:processDebugManifestForPackage' because:
+  Build cache is disabled
+Skipping task ':app:processDebugManifestForPackage' as it is up-to-date.
+Resolve mutations for :app:processDebugResources (Thread[#83,Execution worker Thread 3,5,main]) started.
+:app:processDebugResources (Thread[#83,Execution worker Thread 3,5,main]) started.
+
+> Task :app:processDebugResources UP-TO-DATE
+Caching disabled for task ':app:processDebugResources' because:
+  Build cache is disabled
+Skipping task ':app:processDebugResources' as it is up-to-date.
+Resolve mutations for :app:mergeDebugJniLibFolders (Thread[#83,Execution worker Thread 3,5,main]) started.
+:app:mergeDebugJniLibFolders (Thread[#83,Execution worker Thread 3,5,main]) started.
+
+> Task :app:mergeDebugJniLibFolders UP-TO-DATE
+Caching disabled for task ':app:mergeDebugJniLibFolders' because:
+  Build cache is disabled
+  Simple merging task
+Skipping task ':app:mergeDebugJniLibFolders' as it is up-to-date.
+Resolve mutations for :app:mergeDebugNativeLibs (Thread[#83,Execution worker Thread 3,5,main]) started.
+:app:mergeDebugNativeLibs (Thread[#83,Execution worker Thread 3,5,main]) started.
+
+> Task :app:mergeDebugNativeLibs UP-TO-DATE
+Caching disabled for task ':app:mergeDebugNativeLibs' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:mergeDebugNativeLibs' as it is up-to-date.
+Resolve mutations for :app:stripDebugDebugSymbols (Thread[#81,Execution worker,5,main]) started.
+:app:stripDebugDebugSymbols (Thread[#81,Execution worker,5,main]) started.
+
+> Task :app:stripDebugDebugSymbols UP-TO-DATE
+Caching disabled for task ':app:stripDebugDebugSymbols' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:stripDebugDebugSymbols' as it is up-to-date.
+Resolve mutations for :app:validateSigningDebug (Thread[#83,Execution worker Thread 3,5,main]) started.
+:app:validateSigningDebug (Thread[#83,Execution worker Thread 3,5,main]) started.
+
+> Task :app:validateSigningDebug UP-TO-DATE
+Caching disabled for task ':app:validateSigningDebug' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:validateSigningDebug' as it is up-to-date.
+Resolve mutations for :app:writeDebugAppMetadata (Thread[#83,Execution worker Thread 3,5,main]) started.
+:app:writeDebugAppMetadata (Thread[#83,Execution worker Thread 3,5,main]) started.
+
+> Task :app:writeDebugAppMetadata UP-TO-DATE
+Caching disabled for task ':app:writeDebugAppMetadata' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:writeDebugAppMetadata' as it is up-to-date.
+Resolve mutations for :app:writeDebugSigningConfigVersions (Thread[#81,Execution worker,5,main]) started.
+:app:writeDebugSigningConfigVersions (Thread[#83,Execution worker Thread 3,5,main]) started.
+
+> Task :app:writeDebugSigningConfigVersions UP-TO-DATE
+Caching disabled for task ':app:writeDebugSigningConfigVersions' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Skipping task ':app:writeDebugSigningConfigVersions' as it is up-to-date.
+
+> Task :app:compileDebugKotlin
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+Custom actions are attached to task ':app:compileDebugKotlin'.
+Caching disabled for task ':app:compileDebugKotlin' because:
+  Build cache is disabled
+Task ':app:compileDebugKotlin' is not up-to-date because:
+  Input property 'sources' file /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/data/hardware/CameraSessionManager.kt has changed.
+  Input property 'sources' file /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/data/processing/ImageProcessor.kt has changed.
+  Input property 'sources' file /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/data/processing/FaceBeautifier.kt has been added.
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/kotlin', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+file or directory '/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/debug/java', not found
+Kotlin source files: /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/MainActivity.kt, /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/ui/theme/Color.kt, /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/ui/theme/Theme.kt, /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/ui/theme/Type.kt, /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/ui/viewmodel/CameraInfoViewModel.kt, /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/ui/viewmodel/CameraViewModel.kt, /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/ui/screen/CameraInfoScreen.kt, /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/ui/screen/CameraScreen.kt, /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/data/model/CameraInfoModel.kt, /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/data/hardware/CameraHardwareScanner.kt, /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/data/hardware/CameraSessionManager.kt, /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/data/hardware/ImageCaptureManager.kt, /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/data/processing/ToneCurve.kt, /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/data/processing/ColorGrading.kt, /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/data/processing/ImageProcessor.kt, /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/data/processing/FaceBeautifier.kt
+Java source files: 
+Script source files: 
+Script file extensions: 
+Using Kotlin/JVM incremental compilation
+[KOTLIN] Kotlin compilation 'jdkHome' argument: /usr/lib/jvm/java-21-openjdk
+i: cannot connect to registry: Conexão recusada
+i: starting the daemon as: /usr/lib/jvm/java-21-openjdk/bin/java -cp /home/otavioemanoel/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/2.2.10/6882d39ef03b18879c1a5d2a83c2212361bed5fe/kotlin-compiler-embeddable-2.2.10.jar:/home/otavioemanoel/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/2.2.10/30de6faa127a4a012db8e71bf1b9c0a99b1402b2/kotlin-stdlib-2.2.10.jar:/home/otavioemanoel/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/2.2.10/712f9bc08f378c13a4a00f0bbb28c76e59183e83/kotlin-script-runtime-2.2.10.jar:/home/otavioemanoel/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.6.10/1cbe9c92c12a94eea200d23c2bbaedaf3daf5132/kotlin-reflect-1.6.10.jar:/home/otavioemanoel/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-embeddable/2.2.10/212fd3c2c6e4e5d0f4db3c4191233e2b622380cc/kotlin-daemon-embeddable-2.2.10.jar:/home/otavioemanoel/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm/1.8.0/ac1dc37a30a93150b704022f8d895ee1bd3a36b3/kotlinx-coroutines-core-jvm-1.8.0.jar:/home/otavioemanoel/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar -Djava.awt.headless=true -Djava.rmi.server.hostname=127.0.0.1 -Xmx2048m -XX:ReservedCodeCacheSize=320m -Dkotlin.environment.keepalive -ea -XX:+UseCodeCacheFlushing -XX:+UseParallelGC -Dkotlin.daemon.initiator.marker.file=/tmp/kotlin-compiler-in-pticore-5334704054213531551.alive --add-exports java.base/sun.nio.ch=ALL-UNNAMED org.jetbrains.kotlin.daemon.KotlinCompileDaemon --daemon-runFilesPath /home/otavioemanoel/.local/share/kotlin/daemon --daemon-autoshutdownIdleSeconds=7200 --daemon-compilerClasspath /home/otavioemanoel/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/2.2.10/6882d39ef03b18879c1a5d2a83c2212361bed5fe/kotlin-compiler-embeddable-2.2.10.jar:/home/otavioemanoel/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/2.2.10/30de6faa127a4a012db8e71bf1b9c0a99b1402b2/kotlin-stdlib-2.2.10.jar:/home/otavioemanoel/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/2.2.10/712f9bc08f378c13a4a00f0bbb28c76e59183e83/kotlin-script-runtime-2.2.10.jar:/home/otavioemanoel/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.6.10/1cbe9c92c12a94eea200d23c2bbaedaf3daf5132/kotlin-reflect-1.6.10.jar:/home/otavioemanoel/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-embeddable/2.2.10/212fd3c2c6e4e5d0f4db3c4191233e2b622380cc/kotlin-daemon-embeddable-2.2.10.jar:/home/otavioemanoel/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm/1.8.0/ac1dc37a30a93150b704022f8d895ee1bd3a36b3/kotlinx-coroutines-core-jvm-1.8.0.jar:/home/otavioemanoel/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar
+i: #1 retrying connecting to the daemon 
+i: cannot connect to registry: Conexão recusada
+Options for KOTLIN DAEMON: IncrementalCompilationOptions(super=CompilationOptions(compilerMode=INCREMENTAL_COMPILER, targetPlatform=JVM, reportCategories=[0, 3], reportSeverity=2, requestedCompilationResults=[0], kotlinScriptExtensions=[]), sourceChanges=org.jetbrains.kotlin.buildtools.api.SourcesChanges$Known@e9b0ce, classpathChanges=NoChanges, workingDir=/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/build/kotlin/compileDebugKotlin/cacheable, multiModuleICSettings=MultiModuleICSettings(buildHistoryFile=/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/build/kotlin/compileDebugKotlin/local-state/build-history.bin, useModuleDetection=true), icFeatures=IncrementalCompilationFeatures(usePreciseJavaTracking=true, withAbiSnapshot=false, preciseCompilationResultsBackup=true, keepIncrementalCompilationCachesInMemory=true, enableUnsafeIncrementalCompilationForMultiplatform=false, enableMonotonousIncrementalCompileSetExpansion=true), outputFiles=[/home/otavioemanoel/AndroidStudioProjects/OpticCore/app/build/intermediates/built_in_kotlinc/debug/compileDebugKotlin/classes, /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/build/kotlin/compileDebugKotlin/cacheable, /home/otavioemanoel/AndroidStudioProjects/OpticCore/app/build/kotlin/compileDebugKotlin/local-state])
+e: file:///home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/data/processing/FaceBeautifier.kt:13:27 Unresolved reference 'tasks'.
+e: file:///home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/data/processing/FaceBeautifier.kt:32:49 Unresolved reference 'await'.
+e: file:///home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/data/processing/FaceBeautifier.kt:45:50 Argument type mismatch: actual type is 'Bitmap.Config?', but 'Bitmap.Config' was expected.
+e: file:///home/otavioemanoel/AndroidStudioProjects/OpticCore/app/src/main/java/com/otavio/opticcore/data/processing/FaceBeautifier.kt:54:26 Method 'iterator()' is ambiguous for this expression. Applicable candidates:
+fun <T> Enumeration<T>.iterator(): Iterator<T>
+fun <T> Iterator<T>.iterator(): Iterator<T>
+fun <K, V> Map<out K, V>.iterator(): Iterator<Map.Entry<K, V>>
+fun <K, V> MutableMap<K, V>.iterator(): MutableIterator<MutableMap.MutableEntry<K, V>>
+fun CharSequence.iterator(): CharIterator
+fun BufferedInputStream.iterator(): ByteIterator
+Finished executing kotlin compiler using DAEMON strategy
+Restoring task outputs to pre-compilation state
+
+> Task :app:compileDebugKotlin FAILED
+Build 8d677398-f1e6-4a3f-89a3-913f8afd7111 is closed
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:compileDebugKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --debug option to get more log output.
+> Run with --scan to generate a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 20s
+29 actionable tasks: 1 executed, 28 up-to-date
